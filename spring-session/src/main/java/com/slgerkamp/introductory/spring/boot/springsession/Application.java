@@ -22,7 +22,7 @@ public class Application {
         return (evt) -> Stream.of("user01", "user02", "user03")
                 .forEach(a -> {
                     Account account = accountRepository.save(new Account(a,
-                            "password"));
+                    		"$2a$10$tFfSjQksxXWSr9aQKInAieagRA0KpCxcLs5QyuY8VSiJ.6e93C3ey"));
                     bookmarkRepository.save(new Bookmark(account,
                             "http://bookmark.com/1/" + a, "A description"));
                     bookmarkRepository.save(new Bookmark(account,
