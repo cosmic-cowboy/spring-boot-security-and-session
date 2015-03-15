@@ -1,0 +1,26 @@
+# spring.profiles.activeにデフォルトでアクティブなプロファイルを指定 
+spring: 
+  profiles: 
+    active: dev
+
+# "---"でプロファイルを区切る 
+# プロファイル名はspring.profilesに書く 
+--- 
+spring: 
+  profiles: dev
+# LOGGING
+logging:
+  file: /var/log/springboot/security-and-session
+  level: 
+    org.springframework.web: DEBUG
+
+
+server:
+  tomcat:
+    access-log-enabled: true
+    access-log-pattern: "%h %l %u %t \"%r\" %s %b %D \"%{Referer}i\" \"%{User-agent}i\""
+    basedir : /var/log/springboot
+
+security:
+  basic:
+    enabled: false
