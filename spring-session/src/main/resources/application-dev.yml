@@ -1,0 +1,5 @@
+# LOGGING
+logging:
+  file: /var/log/springboot/spring-session-development
+  level: 
+    org.springframework.web: DEBUG

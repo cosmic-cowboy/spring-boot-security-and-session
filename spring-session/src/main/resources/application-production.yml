@@ -1,0 +1,5 @@
+# LOGGING
+logging:
+  file: /var/log/springboot/spring-session-production
+  level: 
+    org.springframework.web: INFO
