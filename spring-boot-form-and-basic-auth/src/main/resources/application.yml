@@ -1,0 +1,11 @@
+# LOGGING
+logging:
+  file: /var/log/springboot/form-and-basic-auth
+  level: 
+    com.slgerkamp.introductory.spring.boot.formandbasicauth: DEBUG
+
+server:
+  tomcat:
+    access-log-enabled: true
+    access-log-pattern: "%h %l %u %t \"%r\" %s %b %D \"%{Referer}i\" \"%{User-agent}i\""
+    basedir : /var/log/springboot
