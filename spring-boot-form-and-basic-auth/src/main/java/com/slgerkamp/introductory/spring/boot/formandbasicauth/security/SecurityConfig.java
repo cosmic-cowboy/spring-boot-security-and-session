@@ -3,6 +3,7 @@ package com.slgerkamp.introductory.spring.boot.formandbasicauth.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,10 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebMvcSecurity
-@Configuration
-public class SecurityConfig  extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-	
+	@Configuration
+	@Order(1)
+	public static class ApiWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 		@Override
 		public void configure(WebSecurity web) throws Exception {
 			// 静的リソースに対する認証処理を無効にする
@@ -33,28 +35,29 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 				.and()
 				.httpBasic();
 		}
-
+	}
 
 		
-		/**
-		 * 認証に関する設定を行う
-		 *
-		 */
-		static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-			
-			@Autowired
-			UserDetailsService userDetailsService;
-			
-			@Bean
-			PasswordEncoder passwordEncoder(){
-				return new BCryptPasswordEncoder();
-			}
-			
-			@Override
-			public void init(AuthenticationManagerBuilder auth) throws Exception {
-				
-				auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-			}
-
+	/**
+	 * 認証に関する設定を行う
+	 *
+	 */
+	@Configuration
+	public static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+		
+		@Autowired
+		UserDetailsService userDetailsService;
+		
+		@Bean
+		PasswordEncoder passwordEncoder(){
+			return new BCryptPasswordEncoder();
 		}
+		
+		@Override
+		public void init(AuthenticationManagerBuilder auth) throws Exception {
+			
+			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		}
+
+	}
 }
