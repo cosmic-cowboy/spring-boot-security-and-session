@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebMvcSecurity
 public class SecurityConfig {
@@ -37,7 +38,32 @@ public class SecurityConfig {
 		}
 	}
 
+	@Configuration
+	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 		
+		final String loginForm = "/loginForm";
+		
+		@Override
+	    protected void configure(HttpSecurity http) throws Exception {
+			
+	        http.authorizeRequests()
+	                .antMatchers("/admin/loginForm").permitAll()
+	                .anyRequest().authenticated();
+	        
+	        http.formLogin().loginProcessingUrl("/login")
+	                .loginPage("/admin/loginForm")
+	                .failureUrl("/admin/loginForm?error")
+	                .defaultSuccessUrl("/admin/index", true)
+	                .usernameParameter("username").passwordParameter("password")
+	                .and();
+
+	        http.logout()
+	                .logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout**"))
+	                .logoutSuccessUrl("/admin/loginForm");
+	    }
+	}
+
+	
 	/**
 	 * 認証に関する設定を行う
 	 *

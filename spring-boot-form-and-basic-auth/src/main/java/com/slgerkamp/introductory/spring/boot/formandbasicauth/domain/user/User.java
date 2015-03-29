@@ -1,17 +1,20 @@
 package com.slgerkamp.introductory.spring.boot.formandbasicauth.domain.user;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Serializable{
+
+	private static final long serialVersionUID = -1343835291246956810L;
 
 	public String getUsername() {
 		return username;

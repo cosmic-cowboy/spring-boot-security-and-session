@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Web Socketでチャットルーム</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"
+          th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap-theme.min.css}"/>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Web Socketでチャットルーム</h1>
+	<section>
+		<form id="chatForm">
+			<input name="message" />
+			<button type="submit">Send</button>
+		</form>
+		<div id="log"></div>
+	</section>
+</div>
+</body>
+</html>
