@@ -17,6 +17,12 @@ http://docs.spring.io/spring-security/site/docs/4.0.0.RELEASE/reference/htmlsing
 $ curl -v -X GET "http://localhost:8080/api/login" -u user01:{password}
 ```
 
+WebSocket通信
+```
+$ curl -v "http://localhost:8080/api/echo" -N -u user01:{password} -H "Connection: Upgrade" -H "Upgrade: websocket" -H "Sec-WebSocket-Version: 13" -H "Sec-WebSocket-Key: `perl -MMIME::Base64 -e 'print encode_base64("13-hogehgeo")'`"
+```
+
+
 ### フォーム認証（webページ）
 ログインフォーム
 ```
